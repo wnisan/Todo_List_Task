@@ -1,0 +1,131 @@
+/* Сброс стандартных стилей браузера */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Основные стили для всей страницы */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f7fafc;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+/* Убираем стандартные стили у кнопок и инпутов */
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Плавные переходы для всех интерактивных элементов */
+button, input, .todo-item {
+  transition: all 0.3s ease;
+}
+
+/* Скрываем скроллбар но оставляем функциональность */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+/* Основные стили для всего приложения */
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #667eea;;
+  min-height: 100vh;
+}
+
+/* Контейнер для контента */
+.app-content {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+}
+
+/* Заголовок приложения */
+.app-title {
+  text-align: center;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .app {
+    padding: 15px;
+  }
+  
+  .app-content {
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  .todo-form {
+    flex-direction: column;
+  }
+  
+  .todo-input {
+    min-width: auto;
+  }
+  
+  .add-button {
+    width: 100%;
+  }
+  
+  .todo-item {
+    padding: 12px;
+  }
+  
+  .load-todos-button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .app {
+    padding: 10px;
+  }
+  
+  .app-content {
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .app-title {
+    font-size: 1.8rem;
+  }
+  
+  .todo-list-title {
+    font-size: 1.2rem;
+  }
+}
