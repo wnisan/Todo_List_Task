@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import { addTodo, fetchTodos } from './store/actions';
+import { AppDispatch, RootState } from './store';
 import TodoList from './components/TodoList';
 import './App.css';
 import './components/Add_Todo.css';
@@ -10,8 +9,8 @@ import './components/Loading.css';
 
 const App: React.FC = () => {
     const [text,setText] = useState('');
-    const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>(); // Хук для отправки действий
-    const {loading, error} = useSelector((state:any) => state); // Хук для получения состояния
+    const dispatch = useDispatch<AppDispatch>(); // Хук для отправки действий
+    const {loading, error} = useSelector((state: RootState) => state); // Хук для получения состояния
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

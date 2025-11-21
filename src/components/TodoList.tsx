@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 import TodoItem from './TodoItem';
 import './TodoList.css';
 
 const TodoList: React.FC = () => {
-    const todos = useSelector((state: any) => state.todos);
+    const todos = useSelector((state: RootState) => state.todos);
 
     return(
       <div className="todo-list">
@@ -16,7 +17,7 @@ const TodoList: React.FC = () => {
         </div>
       ) : (
         <ul>
-          {todos.map((todo: any) => (
+          {todos.map((todo) => (
             <TodoItem 
               key={todo.id}
               todo={todo} 
