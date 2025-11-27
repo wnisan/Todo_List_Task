@@ -14,7 +14,7 @@ interface Todo {
     completed: boolean;
 }
 
-interface TodoState {
+export interface TodoState {
     todos: Todo[],
     loading: boolean,
     error: string | null
