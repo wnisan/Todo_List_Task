@@ -1,13 +1,9 @@
 // Fake API для имитации асинхронных запросов
-
-export interface Todo {
-    id: number;
-    text: string;
-    completed: boolean;
-}
+import { Todo } from '../store/store';
 
 // Имитация задержки сети
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms: number): Promise<void> => 
+    new Promise<void>((resolve: () => void) => setTimeout(resolve, ms));
 
 // Фейковые данные для тестирования
 const fakeTodos: string[] = [
@@ -18,49 +14,31 @@ const fakeTodos: string[] = [
     'Выучить React'
 ];
 
-/**
- * Имитация API запроса для получения списка задач
- * @returns Promise с массивом текстов задач
- */
+// Имитация API запроса для получения списка задач
 export const fetchTodosApi = async (): Promise<string[]> => {
-    await delay(1000); // Имитация задержки сети
-    
-    // Имитация случайной ошибки (10% вероятность)
-    if (Math.random() > 0.9) {
-        throw new Error('Ошибка загрузки задач. Попробуйте позже.');
-    }
-    
-    return Promise.resolve(fakeTodos);
+    await delay(1000);
+    return Promise.resolve<string[]>(fakeTodos);
 };
 
-/**
- * Имитация API запроса для добавления задачи
- * @param text - текст задачи
- * @returns Promise с созданной задачей
- */
+// Имитация API запроса для добавления задачи
 export const addTodoApi = async (text: string): Promise<Todo> => {
-    await delay(500); // Имитация задержки сети
-    
-    return Promise.resolve({
+    await delay(500);
+    const newTodo: Todo = {
         id: Date.now(),
         text,
-        completed: false
-    });
+        completed: false,
+    };
+    return Promise.resolve<Todo>(newTodo);
 };
 
-/**
- * Имитация API запроса для обновления задачи
- * @param id - идентификатор задачи
- * @param completed - статус выполнения
- * @returns Promise с обновленной задачей
- */
+// Имитация API запроса для обновления задачи
 export const updateTodoApi = async (id: number, completed: boolean): Promise<Todo> => {
-    await delay(300); // Имитация задержки сети
-    
-    return Promise.resolve({
+    await delay(300);
+    const updatedTodo: Todo = {
         id,
         text: '',
-        completed
-    });
+        completed,
+    };
+    return Promise.resolve<Todo>(updatedTodo);
 };
 

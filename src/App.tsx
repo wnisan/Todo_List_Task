@@ -1,60 +1,62 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { addTodo, fetchTodos } from './store/actions';
+import { useAppStore } from './store/store';
 import TodoList from './components/TodoList';
 import './App.css';
 import './components/Add_Todo.css';
 import './components/Loading.css';
 
 const App: React.FC = () => {
-    const [text,setText] = useState('');
-    const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>(); // Хук для отправки действий
-    const {loading, error} = useSelector((state:any) => state); // Хук для получения состояния
+    const [text, setText] = useState<string>('');
+    const loading = useAppStore((state) => state.loading);
+    const error = useAppStore((state) => state.error);
+    const addTodo = useAppStore((state) => state.addTodo);
+    const fetchTodos = useAppStore((state) => state.fetchTodos);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        if(text.trim()) {
-            dispatch(addTodo(text));
+        if (text.trim()) {
+            addTodo(text);
             setText('');
         }
     };
 
-    return(
-    <div className="app">
-      <h1 className="app-title">Todo List</h1>
+    const handleLoadTodos = (): void => {
+        fetchTodos();
+    };
 
-      <div className="app-content">
-        <form className="todo-form" onSubmit={handleSubmit}>
-          <input
-            className="todo-input"
-            type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}  
-            placeholder="Добавьте новую задачу"
-          />
-          <button className="add-button" type="submit">Добавить</button>
-        </form>
+    return (
+        <div className="app">
+            <h1 className="app-title">Todo List</h1>
 
-        <button 
-          className="load-todos-button"
-          onClick={() => dispatch(fetchTodos())}
-        >
-          Загрузить тестовые задачи
-        </button>
+            <div className="app-content">
+                <form className="todo-form" onSubmit={handleSubmit}>
+                    <input
+                        className="todo-input"
+                        type="text"
+                        value={text}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+                        placeholder="Добавьте новую задачу"
+                    />
+                    <button className="add-button" type="submit">
+                        Добавить
+                    </button>
+                </form>
 
-        {loading && (
-          <div className="loading">
-            <div className="loading-spinner"></div>
-            Загрузка...
-          </div>
-        )}
-        {error && <div className="error">Ошибка: {error}</div>}
+                <button className="load-todos-button" onClick={handleLoadTodos}>
+                    Загрузить тестовые задачи
+                </button>
 
-        <TodoList />
-      </div>
-    </div>
+                {loading && (
+                    <div className="loading">
+                        <div className="loading-spinner"></div>
+                        Загрузка...
+                    </div>
+                )}
+                {error && <div className="error">Ошибка: {error}</div>}
+
+                <TodoList />
+            </div>
+        </div>
     );
 };
 
